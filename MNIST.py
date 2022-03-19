@@ -92,11 +92,12 @@ def train(epoch):
 def t1est():
     correct = 0
     total = 0
-    with torch.no_grad():
+    with torch.no_grad():  # 无梯度计算
         for data in test_loader:
-            images, labels = data
+            images, labels = data #图片和标签     data中包含两部分tensor  一部分是图片  一部分是标签
+            print(data)
             outputs = model(images)
-            _, predicted = torch.max(outputs.data, dim=1)
+            _, predicted = torch.max(outputs.data, dim=1)  # _ 为占位符     output.data 是softmax函数输出的一个tensor     函数会返回两个tensor，第一个tensor是每行的最大值；第二个tensor是每行最大值的索引。
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
     print('正确率：%d%%' % (100 * correct / total))
