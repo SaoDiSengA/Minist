@@ -9,12 +9,15 @@ import torch.optim as optim
 import cv2
 from PIL import Image
 import numpy as np
+import os
+
 
 batch_size = 64
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
 ])
+
 train_dataset = datasets.MNIST(
     root='dataset/MNIST/raw',
     train=True,
@@ -142,7 +145,9 @@ def detect():
         output = model(img_ready)
         print(output)
 
+
 if __name__ == '__main__':
-        for epoch in range(5):
-            train(epoch)
-            t1est()
+    for epoch in range(10):
+        train(epoch)
+        t1est()
+    torch.save(model.state_dict(), 'faminist1.pkl')
